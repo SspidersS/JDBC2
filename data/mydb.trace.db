@@ -1,0 +1,304 @@
+2025-02-18 17:51:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "[*]IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'MegaSoft')\000d\000aBEGIN\000d\000a    CREATE DATABASE YourDatabaseName;\000d\000aEND;\000d\000a\000d\000aUSE MegaSoft\000d\000aIF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[worker]') AND type = 'U')\000d\000aBEGIN\000d\000a    CREATE TABLE dbo.worker (\000d\000a        ID INT PRIMARY KEY,\000d\000a        Name NVARCHAR(1000) NOT NULL CHECK (LEN(Name) BETWEEN 2 AND 1000),\000d\000a        BIRTHDAY DATE CHECK(YEAR(BIRTHDAY)>1900),\000d\000a        LEVEL NVARCHAR(20) NOT NULL CHECK (LEVEL IN ('Trainee', 'Junior', 'Middle', 'Senior')),\000d\000a\0009\0009SALARY INT CHECK(SALARY BETWEEN 100 AND 100000)\000d\000a    );\000d\000aEND;\000d\000a\000d\000aUSE MegaSoft\000d\000aIF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[client]') AND type = 'U')\000d\000aBEGIN\000d\000a    CREATE TABLE dbo.client (\000d\000a        ID INT PRIMARY KEY,\000d\000a        Name NVARCHAR(1000) NOT NULL CHECK (LEN(Name) BETWEEN 2 AND 1000),\000d\000a    );\000d\000aEND;\000d\000a\000d\000aUSE MegaSoft\000d\000aIF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[project]') AND type = 'U')\000d\000aBEGIN\000d\000a    CREATE TABLE dbo.project (\000d\000a        ID INT PRIMARY KEY,\000d\000a        CLIENT_ID INT,\000d\000a\0009\0009START_DATE DATE,\000d\000a\0009\0009Finish_DATE DATE\000d\000a    );\000d\000aEND;\000d\000a\000d\000aUSE MegaSoft\000d\000aIF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[project_worker]') AND type = 'U')\000d\000aBEGIN\000d\000a    CREATE TABLE dbo.project_worker (\000d\000a        PROJECT_ID INT,\000d\000a\0009\0009WORKER_ID INT,\000d\000a\0009\0009PRIMARY KEY(PROJECT_ID, WORKER_ID),\000d\000a\0009\0009FOREIGN KEY (PROJECT_ID) REFERENCES project(ID),\000d\000a\0009\0009FOREIGN KEY (WORKER_ID) REFERENCES worker(ID)\000d\000a    );\000d\000aEND;\000d\000a"
+Syntax error in SQL statement "[*]IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'MegaSoft')\000d\000aBEGIN\000d\000a    CREATE DATABASE YourDatabaseName;\000d\000aEND;\000d\000a\000d\000aUSE MegaSoft\000d\000aIF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[worker]') AND type = 'U')\000d\000aBEGIN\000d\000a    CREATE TABLE dbo.worker (\000d\000a        ID INT PRIMARY KEY,\000d\000a        Name NVARCHAR(1000) NOT NULL CHECK (LEN(Name) BETWEEN 2 AND 1000),\000d\000a        BIRTHDAY DATE CHECK(YEAR(BIRTHDAY)>1900),\000d\000a        LEVEL NVARCHAR(20) NOT NULL CHECK (LEVEL IN ('Trainee', 'Junior', 'Middle', 'Senior')),\000d\000a\0009\0009SALARY INT CHECK(SALARY BETWEEN 100 AND 100000)\000d\000a    );\000d\000aEND;\000d\000a\000d\000aUSE MegaSoft\000d\000aIF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[client]') AND type = 'U')\000d\000aBEGIN\000d\000a    CREATE TABLE dbo.client (\000d\000a        ID INT PRIMARY KEY,\000d\000a        Name NVARCHAR(1000) NOT NULL CHECK (LEN(Name) BETWEEN 2 AND 1000),\000d\000a    );\000d\000aEND;\000d\000a\000d\000aUSE MegaSoft\000d\000aIF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[project]') AND type = 'U')\000d\000aBEGIN\000d\000a    CREATE TABLE dbo.project (\000d\000a        ID INT PRIMARY KEY,\000d\000a        CLIENT_ID INT,\000d\000a\0009\0009START_DATE DATE,\000d\000a\0009\0009Finish_DATE DATE\000d\000a    );\000d\000aEND;\000d\000a\000d\000aUSE MegaSoft\000d\000aIF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[project_worker]') AND type = 'U')\000d\000aBEGIN\000d\000a    CREATE TABLE dbo.project_worker (\000d\000a        PROJECT_ID INT,\000d\000a\0009\0009WORKER_ID INT,\000d\000a\0009\0009PRIMARY KEY(PROJECT_ID, WORKER_ID),\000d\000a\0009\0009FOREIGN KEY (PROJECT_ID) REFERENCES project(ID),\000d\000a\0009\0009FOREIGN KEY (WORKER_ID) REFERENCES worker(ID)\000d\000a    );\000d\000aEND;\000d\000a"; SQL statement:
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'MegaSoft')
+BEGIN
+    CREATE DATABASE YourDatabaseName;
+END;
+
+USE MegaSoft
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[worker]') AND type = 'U')
+BEGIN
+    CREATE TABLE dbo.worker (
+        ID INT PRIMARY KEY,
+        Name NVARCHAR(1000) NOT NULL CHECK (LEN(Name) BETWEEN 2 AND 1000),
+        BIRTHDAY DATE CHECK(YEAR(BIRTHDAY)>1900),
+        LEVEL NVARCHAR(20) NOT NULL CHECK (LEVEL IN ('Trainee', 'Junior', 'Middle', 'Senior')),
+		SALARY INT CHECK(SALARY BETWEEN 100 AND 100000)
+    );
+END;
+
+USE MegaSoft
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[client]') AND type = 'U')
+BEGIN
+    CREATE TABLE dbo.client (
+        ID INT PRIMARY KEY,
+        Name NVARCHAR(1000) NOT NULL CHECK (LEN(Name) BETWEEN 2 AND 1000),
+    );
+END;
+
+USE MegaSoft
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[project]') AND type = 'U')
+BEGIN
+    CREATE TABLE dbo.project (
+        ID INT PRIMARY KEY,
+        CLIENT_ID INT,
+		START_DATE DATE,
+		Finish_DATE DATE
+    );
+END;
+
+USE MegaSoft
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[project_worker]') AND type = 'U')
+BEGIN
+    CREATE TABLE dbo.project_worker (
+        PROJECT_ID INT,
+		WORKER_ID INT,
+		PRIMARY KEY(PROJECT_ID, WORKER_ID),
+		FOREIGN KEY (PROJECT_ID) REFERENCES project(ID),
+		FOREIGN KEY (WORKER_ID) REFERENCES worker(ID)
+    );
+END;
+ [42000-214]
+2025-02-18 17:52:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Функция "LEN" не найдена
+Function "LEN" not found; SQL statement:
+-- РЎС‚РІРѕСЂРµРЅРЅСЏ Р±Р°Р·Рё РґР°РЅРёС… MegaSoft (РІ H2 С†Рµ РЅРµ РїРѕС‚СЂС–Р±РЅРѕ, СЏРєС‰Рѕ РІРё РїС–РґРєР»СЋС‡Р°С”С‚РµСЃСЏ РґРѕ С–СЃРЅСѓСЋС‡РѕС— Р‘Р”)
+-- РЎС‚РІРѕСЂРµРЅРЅСЏ С‚Р°Р±Р»РёС†СЊ
+CREATE TABLE IF NOT EXISTS worker (
+    ID INT PRIMARY KEY,
+    Name NVARCHAR(1000) NOT NULL CHECK (LEN(Name) BETWEEN 2 AND 1000),
+    BIRTHDAY DATE CHECK(YEAR(BIRTHDAY) > 1900),
+    LEVEL NVARCHAR(20) NOT NULL CHECK (LEVEL IN ('Trainee', 'Junior', 'Middle', 'Senior')),
+    SALARY INT CHECK(SALARY BETWEEN 100 AND 100000)
+);
+
+CREATE TABLE IF NOT EXISTS client (
+    ID INT PRIMARY KEY,
+    Name NVARCHAR(1000) NOT NULL CHECK (LEN(Name) BETWEEN 2 AND 1000)
+);
+
+CREATE TABLE IF NOT EXISTS project (
+    ID INT PRIMARY KEY,
+    CLIENT_ID INT,
+    START_DATE DATE,
+    FINISH_DATE DATE
+);
+
+CREATE TABLE IF NOT EXISTS project_worker (
+    PROJECT_ID INT,
+    WORKER_ID INT,
+    PRIMARY KEY (PROJECT_ID, WORKER_ID),
+    FOREIGN KEY (PROJECT_ID) REFERENCES project(ID),
+    FOREIGN KEY (WORKER_ID) REFERENCES worker(ID)
+);
+ [90022-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readFunction(Parser.java:3847)
+	at org.h2.command.Parser.readTermWithIdentifier(Parser.java:5211)
+	at org.h2.command.Parser.readTerm(Parser.java:4901)
+	at org.h2.command.Parser.readFactor(Parser.java:3398)
+	at org.h2.command.Parser.readSum(Parser.java:3385)
+	at org.h2.command.Parser.readConcat(Parser.java:3350)
+	at org.h2.command.Parser.readCondition(Parser.java:3132)
+	at org.h2.command.Parser.readExpression(Parser.java:3053)
+	at org.h2.command.Parser.readTermWithoutIdentifier(Parser.java:4990)
+	at org.h2.command.Parser.readTerm(Parser.java:4901)
+	at org.h2.command.Parser.readFactor(Parser.java:3398)
+	at org.h2.command.Parser.readSum(Parser.java:3385)
+	at org.h2.command.Parser.readConcat(Parser.java:3350)
+	at org.h2.command.Parser.readCondition(Parser.java:3132)
+	at org.h2.command.Parser.readExpression(Parser.java:3053)
+	at org.h2.command.Parser.readColumnConstraints(Parser.java:9407)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:9336)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:9271)
+	at org.h2.command.Parser.parseCreate(Parser.java:6784)
+	at org.h2.command.Parser.parsePrepared(Parser.java:763)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:186)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:143)
+	at org.example.DbInitService.init(DbInitService.java:27)
+	at org.example.Main.main(Main.java:15)
+2025-02-18 17:52:59 database: flush
+org.h2.message.DbException: Внутренняя ошибка: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Yana/Documents/JDBC/data/mydb.mv.db [2.1.214/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Yana/Documents/JDBC/data/mydb.mv.db [2.1.214/7]" [50000-214]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.message.DbException.convert(DbException.java:395)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:125)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:3318)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:593)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:469)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:4082)
+	at org.h2.mvstore.db.Store.<init>(Store.java:136)
+	at org.h2.engine.Database.<init>(Database.java:324)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:338)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:122)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:683)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:230)
+	at org.example.Database.<init>(Database.java:23)
+	at org.example.Database.getInstance(Database.java:33)
+	at org.example.DbInitService.init(DbInitService.java:21)
+	at org.example.Main.main(Main.java:15)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Внутренняя ошибка: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Yana/Documents/JDBC/data/mydb.mv.db [2.1.214/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Yana/Documents/JDBC/data/mydb.mv.db [2.1.214/7]" [50000-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:554)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	... 21 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Yana/Documents/JDBC/data/mydb.mv.db [2.1.214/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:1004)
+	at org.h2.mvstore.FileStore.open(FileStore.java:178)
+	at org.h2.mvstore.FileStore.open(FileStore.java:128)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:452)
+	... 15 more
+2025-02-18 17:54:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Функция "LEN" не найдена
+Function "LEN" not found; SQL statement:
+-- РЎС‚РІРѕСЂРµРЅРЅСЏ Р±Р°Р·Рё РґР°РЅРёС… MegaSoft (РІ H2 С†Рµ РЅРµ РїРѕС‚СЂС–Р±РЅРѕ, СЏРєС‰Рѕ РІРё РїС–РґРєР»СЋС‡Р°С”С‚РµСЃСЏ РґРѕ С–СЃРЅСѓСЋС‡РѕС— Р‘Р”)
+-- РЎС‚РІРѕСЂРµРЅРЅСЏ С‚Р°Р±Р»РёС†СЊ
+CREATE TABLE IF NOT EXISTS worker (
+    ID INT PRIMARY KEY,
+    Name NVARCHAR(1000) NOT NULL CHECK (LEN(Name) BETWEEN 2 AND 1000),
+    BIRTHDAY DATE CHECK(YEAR(BIRTHDAY) > 1900),
+    LEVEL NVARCHAR(20) NOT NULL CHECK (LEVEL IN ('Trainee', 'Junior', 'Middle', 'Senior')),
+    SALARY INT CHECK(SALARY BETWEEN 100 AND 100000)
+);
+
+CREATE TABLE IF NOT EXISTS client (
+    ID INT PRIMARY KEY,
+    Name NVARCHAR(1000) NOT NULL CHECK (LEN(Name) BETWEEN 2 AND 1000)
+);
+
+CREATE TABLE IF NOT EXISTS project (
+    ID INT PRIMARY KEY,
+    CLIENT_ID INT,
+    START_DATE DATE,
+    FINISH_DATE DATE
+);
+
+CREATE TABLE IF NOT EXISTS project_worker (
+    PROJECT_ID INT,
+    WORKER_ID INT,
+    PRIMARY KEY (PROJECT_ID, WORKER_ID),
+    FOREIGN KEY (PROJECT_ID) REFERENCES project(ID),
+    FOREIGN KEY (WORKER_ID) REFERENCES worker(ID)
+);
+ [90022-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readFunction(Parser.java:3847)
+	at org.h2.command.Parser.readTermWithIdentifier(Parser.java:5211)
+	at org.h2.command.Parser.readTerm(Parser.java:4901)
+	at org.h2.command.Parser.readFactor(Parser.java:3398)
+	at org.h2.command.Parser.readSum(Parser.java:3385)
+	at org.h2.command.Parser.readConcat(Parser.java:3350)
+	at org.h2.command.Parser.readCondition(Parser.java:3132)
+	at org.h2.command.Parser.readExpression(Parser.java:3053)
+	at org.h2.command.Parser.readTermWithoutIdentifier(Parser.java:4990)
+	at org.h2.command.Parser.readTerm(Parser.java:4901)
+	at org.h2.command.Parser.readFactor(Parser.java:3398)
+	at org.h2.command.Parser.readSum(Parser.java:3385)
+	at org.h2.command.Parser.readConcat(Parser.java:3350)
+	at org.h2.command.Parser.readCondition(Parser.java:3132)
+	at org.h2.command.Parser.readExpression(Parser.java:3053)
+	at org.h2.command.Parser.readColumnConstraints(Parser.java:9407)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:9336)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:9271)
+	at org.h2.command.Parser.parseCreate(Parser.java:6784)
+	at org.h2.command.Parser.parsePrepared(Parser.java:763)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:186)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:143)
+	at org.example.DbInitService.init(DbInitService.java:27)
+	at org.example.Main.main(Main.java:12)
+2025-02-18 18:12:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "USE MegaSoft\000a\000a[*]INSERT INTO dbo.worker (ID, NAME, BIRTHDAY, LEVEL, SALARY)\000aVALUES \000a(1, 'Alice Brown', '1995-04-15', 'Trainee', 800),        \000a(2, 'Bob Smith', '1988-11-20', 'Junior', 2500),\000a(3, 'Charlie Johnson', '1990-06-30', 'Middle', 4000),\000a(4, 'Diana Adams', '1985-02-10', 'Senior', 6000),      \000a(5, 'Ethan Carter', '1998-12-05', 'Trainee', 1200),\000a(6, 'Fiona Davis', '1993-08-25', 'Junior', 2200),\000a(7, 'George Hall', '1992-03-18', 'Middle', 3500),\000a(8, 'Hannah White', '1986-09-12', 'Senior', 5500),   \000a(9, 'Ivy Scott', '2000-05-07', 'Trainee', 950),        \000a(10, 'Jack Turner', '1991-01-21', 'Middle', 4200)"
+Syntax error in SQL statement "USE MegaSoft\000a\000a[*]INSERT INTO dbo.worker (ID, NAME, BIRTHDAY, LEVEL, SALARY)\000aVALUES \000a(1, 'Alice Brown', '1995-04-15', 'Trainee', 800),        \000a(2, 'Bob Smith', '1988-11-20', 'Junior', 2500),\000a(3, 'Charlie Johnson', '1990-06-30', 'Middle', 4000),\000a(4, 'Diana Adams', '1985-02-10', 'Senior', 6000),      \000a(5, 'Ethan Carter', '1998-12-05', 'Trainee', 1200),\000a(6, 'Fiona Davis', '1993-08-25', 'Junior', 2200),\000a(7, 'George Hall', '1992-03-18', 'Middle', 3500),\000a(8, 'Hannah White', '1986-09-12', 'Senior', 5500),   \000a(9, 'Ivy Scott', '2000-05-07', 'Trainee', 950),        \000a(10, 'Jack Turner', '1991-01-21', 'Middle', 4200)"; SQL statement:
+USE MegaSoft
+
+INSERT INTO dbo.worker (ID, NAME, BIRTHDAY, LEVEL, SALARY)
+VALUES 
+(1, 'Alice Brown', '1995-04-15', 'Trainee', 800),        
+(2, 'Bob Smith', '1988-11-20', 'Junior', 2500),
+(3, 'Charlie Johnson', '1990-06-30', 'Middle', 4000),
+(4, 'Diana Adams', '1985-02-10', 'Senior', 6000),      
+(5, 'Ethan Carter', '1998-12-05', 'Trainee', 1200),
+(6, 'Fiona Davis', '1993-08-25', 'Junior', 2200),
+(7, 'George Hall', '1992-03-18', 'Middle', 3500),
+(8, 'Hannah White', '1986-09-12', 'Senior', 5500),   
+(9, 'Ivy Scott', '2000-05-07', 'Trainee', 950),        
+(10, 'Jack Turner', '1991-01-21', 'Middle', 4200) [42000-214]
+2025-02-18 18:14:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "USE MegaSoft  [*]INSERT INTO dbo.worker (ID, NAME, BIRTHDAY, LEVEL, SALARY) VALUES (1, 'Alice Brown', '1995-04-15', 'Trainee', 800), (2, 'Bob Smith', '1988-11-20', 'Junior', 2500), (3, 'Charlie Johnson', '1990-06-30', 'Middle', 4000), (4, 'Diana Adams', '1985-02-10', 'Senior', 6000), (5, 'Ethan Carter', '1998-12-05', 'Trainee', 1200), (6, 'Fiona Davis', '1993-08-25', 'Junior', 2200), (7, 'George Hall', '1992-03-18', 'Middle', 3500), (8, 'Hannah White', '1986-09-12', 'Senior', 5500), (9, 'Ivy Scott', '2000-05-07', 'Trainee', 950), (10, 'Jack Turner', '1991-01-21', 'Middle', 4200)"
+Syntax error in SQL statement "USE MegaSoft  [*]INSERT INTO dbo.worker (ID, NAME, BIRTHDAY, LEVEL, SALARY) VALUES (1, 'Alice Brown', '1995-04-15', 'Trainee', 800), (2, 'Bob Smith', '1988-11-20', 'Junior', 2500), (3, 'Charlie Johnson', '1990-06-30', 'Middle', 4000), (4, 'Diana Adams', '1985-02-10', 'Senior', 6000), (5, 'Ethan Carter', '1998-12-05', 'Trainee', 1200), (6, 'Fiona Davis', '1993-08-25', 'Junior', 2200), (7, 'George Hall', '1992-03-18', 'Middle', 3500), (8, 'Hannah White', '1986-09-12', 'Senior', 5500), (9, 'Ivy Scott', '2000-05-07', 'Trainee', 950), (10, 'Jack Turner', '1991-01-21', 'Middle', 4200)"; SQL statement:
+USE MegaSoft  INSERT INTO dbo.worker (ID, NAME, BIRTHDAY, LEVEL, SALARY) VALUES (1, 'Alice Brown', '1995-04-15', 'Trainee', 800), (2, 'Bob Smith', '1988-11-20', 'Junior', 2500), (3, 'Charlie Johnson', '1990-06-30', 'Middle', 4000), (4, 'Diana Adams', '1985-02-10', 'Senior', 6000), (5, 'Ethan Carter', '1998-12-05', 'Trainee', 1200), (6, 'Fiona Davis', '1993-08-25', 'Junior', 2200), (7, 'George Hall', '1992-03-18', 'Middle', 3500), (8, 'Hannah White', '1986-09-12', 'Senior', 5500), (9, 'Ivy Scott', '2000-05-07', 'Trainee', 950), (10, 'Jack Turner', '1991-01-21', 'Middle', 4200) [42000-214]
+2025-02-18 18:17:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Схема "DBO" не найдена
+Schema "DBO" not found; SQL statement:
+INSERT INTO dbo.worker (ID, NAME, BIRTHDAY, LEVEL, SALARY) VALUES (1, 'Alice Brown', '1995-04-15', 'Trainee', 800), (2, 'Bob Smith', '1988-11-20', 'Junior', 2500), (3, 'Charlie Johnson', '1990-06-30', 'Middle', 4000), (4, 'Diana Adams', '1985-02-10', 'Senior', 6000), (5, 'Ethan Carter', '1998-12-05', 'Trainee', 1200), (6, 'Fiona Davis', '1993-08-25', 'Junior', 2200), (7, 'George Hall', '1992-03-18', 'Middle', 3500), (8, 'Hannah White', '1986-09-12', 'Senior', 5500), (9, 'Ivy Scott', '2000-05-07', 'Trainee', 950), (10, 'Jack Turner', '1991-01-21', 'Middle', 4200) [90079-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.getSchema(Parser.java:1044)
+	at org.h2.command.Parser.getSchema(Parser.java:1050)
+	at org.h2.command.Parser.readTableOrView(Parser.java:8333)
+	at org.h2.command.Parser.readTableOrView(Parser.java:8328)
+	at org.h2.command.Parser.parseInsert(Parser.java:1632)
+	at org.h2.command.Parser.parsePrepared(Parser.java:814)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:186)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:143)
+	at org.example.DatabasePopulateService.executeSqlQueries(DatabasePopulateService.java:51)
+	at org.example.DatabasePopulateService.main(DatabasePopulateService.java:22)
+2025-02-18 21:43:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
+The object is already closed [90007-214]
+2025-02-18 21:48:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Объект уже закрыт
+The object is already closed [90007-214]
+2025-02-18 21:53:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Схема "DBO" не найдена
+Schema "DBO" not found; SQL statement:
+
+SELECT NAME FROM dbo.PUBLIC
+WHERE SALARY = (SELECT MAX(SALARY)FROM PUBLIC.worker)
+ [90079-214]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:632)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:477)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.command.Parser.readTablePrimary(Parser.java:1833)
+	at org.h2.command.Parser.readTableReference(Parser.java:2334)
+	at org.h2.command.Parser.parseSelectFromPart(Parser.java:2772)
+	at org.h2.command.Parser.parseSelect(Parser.java:2878)
+	at org.h2.command.Parser.parseQueryPrimary(Parser.java:2762)
+	at org.h2.command.Parser.parseQueryTerm(Parser.java:2633)
+	at org.h2.command.Parser.parseQueryExpressionBody(Parser.java:2612)
+	at org.h2.command.Parser.parseQueryExpressionBodyAndEndOfQuery(Parser.java:2605)
+	at org.h2.command.Parser.parseQueryExpression(Parser.java:2598)
+	at org.h2.command.Parser.parseQuery(Parser.java:2567)
+	at org.h2.command.Parser.parsePrepared(Parser.java:724)
+	at org.h2.command.Parser.parse(Parser.java:689)
+	at org.h2.command.Parser.parse(Parser.java:661)
+	at org.h2.command.Parser.prepareCommand(Parser.java:569)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:631)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:554)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeQuery(JdbcStatement.java:92)
+	at org.example.DatabaseQueryService.executeQuery(DatabaseQueryService.java:25)
+	at org.example.DatabaseQueryService.findWorkerSalaryDetails(DatabaseQueryService.java:63)
+	at org.example.Main.main(Main.java:17)
